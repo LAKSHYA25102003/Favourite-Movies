@@ -1,8 +1,26 @@
+import {data} from "./data"
+import Navbar from "../src/Components/Navbar";
+import MovieCard from "./Components/MovieCard";
 
 function App() {
   return (
     <div className="App">
-      project setup
+      <Navbar />
+      <div className="main">
+        <div className="tabs">
+          <div className="tab">
+            Movies
+          </div>
+          <div className="tab">
+            Favourite
+          </div>
+        </div>
+        <div className="list">
+          {data.map((movie)=>{
+            return <MovieCard movie={movie}/>
+          })}
+        </div>
+      </div>
     </div>
   );
 }

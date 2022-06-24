@@ -14,7 +14,20 @@ function App() {
     dispatch(ADD_MOVIES(data));
   },[])
 
-  const movies=useSelector((state)=>state.favMovie.movies)
+  const movies=useSelector((state)=>state.favMovie.moviesList)
+  const favourites=useSelector((state)=>state.favMovie.fav);
+
+  const isFav = (movie) => {
+    const index=favourites.indexOf(movie);
+    if(index===-1)
+    {
+      return false;
+    }
+    else
+    {
+      return true;
+    }
+  } 
 
   return (
     <div className="App">
@@ -30,7 +43,7 @@ function App() {
         </div>
         <div className="list">
           {movies.map((movie,index)=>{
-            return <MovieCard movie={movie} key={`movies-${index}`}/>
+            return <MovieCard movie={movie} isfavourite={isFav(movie)} key={`movies-${index}`} /> 
           })}
         </div>
       </div>

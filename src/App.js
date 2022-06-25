@@ -7,7 +7,11 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux/es/exports";
 import {ADD_MOVIES,changeShowFav} from "./Redux/FavMovie"
 
+
 function App() {
+
+
+
   const dispatch=useDispatch();
   
   useEffect(()=>{
@@ -29,18 +33,19 @@ function App() {
     }
   } 
 
+  const displayMovies=(toShowFav)?favourites:movies;
   
   return (
     <div className="App">
       <Navbar />
       <div className="main">
         <div className="tabs">
-          <div className="tab" onClick={()=>{
+          <div className={`tab ${toShowFav?'':'active-tabs'}`}onClick={()=>{
             dispatch(changeShowFav(false))
           }}>
             Movies
           </div>
-          <div className="tab" onClick={()=>{
+          <div className={`tab ${toShowFav?'active-tabs':''}`} onClick={()=>{
             dispatch(changeShowFav(true))
           }}>
             Favourite
@@ -48,14 +53,12 @@ function App() {
         </div>
         <div className="list">
           {
-            !toShowFav&&movies.map((movie,index)=>{
+            displayMovies.map((movie,index)=>{
               return <MovieCard movie={movie} isfavourite={isFav(movie)} key={`movies-${index}`} /> 
             })
           }
           {
-            toShowFav&&favourites.map((favourite,index)=>{
-              return <MovieCard movie={favourite} isfavourite={true} key={`movies-${index}`} /> 
-            })
+            (displayMovies.length===0)&&<div className="no-movies">No movie to display!</div>
           }
         </div>
       </div>

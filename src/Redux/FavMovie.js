@@ -24,10 +24,13 @@ export const movieSlice=createSlice({
         },
         changeShowFav:(state,action)=>{
             state.showFav=action.payload;
+        },
+        ADD_MOVIE_TO_THE_LIST:(state,action)=>{
+            state.moviesList=[action.payload,...state.moviesList];
         }
     }
 })
 
-export const {ADD_MOVIES,ADD_FAV,DELETE_FAV,changeShowFav}=movieSlice.actions;
+export const {ADD_MOVIES,ADD_FAV,DELETE_FAV,changeShowFav,ADD_MOVIE_TO_THE_LIST}=movieSlice.actions;
 
 export default movieSlice.reducer;

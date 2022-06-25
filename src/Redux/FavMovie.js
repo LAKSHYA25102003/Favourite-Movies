@@ -6,7 +6,8 @@ export const movieSlice=createSlice({
     name:"favMovie",
     initialState:{
         moviesList:[],
-        fav:[]
+        fav:[],
+        showFav:false
     },
     reducers:{
         ADD_MOVIES:(state,action)=>{
@@ -16,12 +17,17 @@ export const movieSlice=createSlice({
             state.fav=[action.payload,...state.fav]
         },
         DELETE_FAV:(state,action)=>{
-            const ind=state.fav.indexOf(action.payload);
-            state.fav.splice(ind,1);
+            const filteredArray=state.fav.filter((movie)=>{
+                return (movie.Title!==action.payload.Title);
+            })
+            state.fav=filteredArray;
+        },
+        changeShowFav:(state,action)=>{
+            state.showFav=action.payload;
         }
     }
 })
 
-export const {ADD_MOVIES,ADD_FAV,DELETE_FAV}=movieSlice.actions;
+export const {ADD_MOVIES,ADD_FAV,DELETE_FAV,changeShowFav}=movieSlice.actions;
 
 export default movieSlice.reducer;

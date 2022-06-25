@@ -6,12 +6,10 @@ const MovieCard = (props) => {
   const { movie, isfavourite } = props;
   const dispatch = useDispatch();
   const favHandler = () => {
-    if (isfavourite === false) {
       dispatch(ADD_FAV(movie))
-    }
-    else {
-      dispatch(DELETE_FAV(movie));
-    }
+  }
+  const UnfavHandler=()=>{
+    dispatch(DELETE_FAV(movie));
   }
   return (
     <div className='movie-card'>
@@ -25,9 +23,14 @@ const MovieCard = (props) => {
           <div className="rating">
             {movie.imdbRating}
           </div>
-          <button className='favourite-btn' onClick={favHandler} >
-            {`${isfavourite ? "Unfavourite" : "Favourite"}`}
-          </button>
+          {!isfavourite&&<button className='favourite-btn' onClick={favHandler} >
+            Favourite
+          </button>}
+          {
+            isfavourite&&<button className='unfavourite-btn' onClick={UnfavHandler} >
+            Unfavourite
+          </button>}
+          
         </div>
       </div>
     </div>
